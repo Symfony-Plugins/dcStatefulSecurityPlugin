@@ -57,7 +57,7 @@ class dcStatefulSecurityFilter extends sfFilter
     if (method_exists($sf_user, $method))
     {
       // execute it
-      if (!$sf_user->$method())
+      if (!$sf_user->$method($object))
       {
         $this->forwardToSecureAction();
       }

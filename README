@@ -37,7 +37,7 @@ Installation
         state:
           class: dcStatefulSecurityFilter
           param:
-            default_policy: allow # or disallow
+            default_policy: allow # or deny
 
     Default policy gives you the posibility of allow or disallow actions that are not defined in the user class.
 
