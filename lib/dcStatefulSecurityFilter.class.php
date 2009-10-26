@@ -1,7 +1,19 @@
 <?php
 
+/**
+ * dcStatefulSecurityFilter checks security by calling the 'can##ACTION_NAME####MODULE_NAME##()'
+ * method of the user.
+ *
+ * @package dcStatefulSecurityPlugin
+ * @author  Patricio Mac Adden <pmacadden@cespi.unlp.edu.ar>
+ */
 class dcStatefulSecurityFilter extends sfFilter
 {
+  /**
+   * Forwards the current request to the secure action.
+   *
+   * @throws sfStopException
+   */
   protected function forwardToSecureAction()
   {
     $this->context->getController()->forward(sfConfig::get('sf_secure_module'), sfConfig::get('sf_secure_action'));
@@ -9,6 +21,11 @@ class dcStatefulSecurityFilter extends sfFilter
     throw new sfStopException();
   }
 
+  /**
+   * Retrieves an object from the given route.
+   *
+   * @param sfRoute $route A sfRoute instance
+   */
   protected function getObjectForRoute(sfRoute $route)
   {
     if ($route instanceOf sfObjectRoute)
@@ -24,6 +41,11 @@ class dcStatefulSecurityFilter extends sfFilter
     return null;
   }
 
+  /**
+   * Executes this filter.
+   *
+   * @param sfFilterChain $filterChain A sfFilterChain instance
+   */
   public function execute($filterChain)
   {
     // disable stateful security checking on signin and secure actions
