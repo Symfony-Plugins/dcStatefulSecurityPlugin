@@ -1,58 +1,60 @@
-dcStatefulSecurity plugin
-=========================
+# dcStatefulSecurity plugin
 
 The `dcStatefulSecurityPlugin` is a symfony plugin that provides authorization
 features above the standard security feature of symfony.
 
-Installation
-------------
+## Installation
 
   * Install the plugin
 
-    * PEAR
+    * using the symfony plugin system
 
+            [bash]
             $ symfony plugin:install dcStatefulSecurityPlugin
 
-    * Subversion
+    * using subversion
 
+            [bash]
             $ svn co http://svn.symfony-project.com/plugins/dcStatefulSecurityPlugin/trunk dcStatefulSecurityPlugin
 
   * Insert the filter
 
-        [yml]
+        [yaml]
         rendering: ~
         security:  ~
 
         # insert your own filters here
-        state:
+        stateful_security:
           class: dcStatefulSecurityFilter
 
         cache:     ~
-        common:    ~
         execution: ~
 
     Optionally, you can set the default policy:
 
-        [yml]
-        state:
+        [yaml]
+        stateful_security:
           class: dcStatefulSecurityFilter
           param:
             default_policy: allow # or deny
 
-    Default policy gives you the posibility of allow or disallow actions that are not defined in the user class.
+    Default policy gives you the posibility of allow or deny actions that are not defined in the user class.
 
   * Clear you cache
 
+        [bash]
         $ symfony cc
 
-  * Define the user permissions based on object states (and user credentials, why not?).
+## Usage
 
-      For example, supose that we have the person module, so, we can disallow the user to edit persons that
-      are blocked (supose that a person is blocked if an attribute 'is_blocked' is set to true)
+Define the user permissions based on object states (and user credentials, why not?).
 
-        [php]
-        // in myUser.class.php
-        public function canEditPerson($person)
-        {
-          return !$person->isBlocked();
-        }
+For example, supose that we have the person module, so, we can disallow the user to edit persons that
+are blocked (supose that a person is blocked if an attribute 'is_blocked' is set to true)
+
+    [php]
+    // in myUser.class.php
+    public function canEditPerson($person)
+    {
+      return !$person->isBlocked();
+    }
